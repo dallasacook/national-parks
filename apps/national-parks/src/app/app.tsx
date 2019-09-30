@@ -1,25 +1,25 @@
-import React, { useEffect, useState } from 'react';
-import { IPark } from '@national-parks/api-interfaces';
+import React from 'react';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+
+import ParkList from './components/ParkList';
 
 export const App = () => {
-  const [parks, setParks] = useState<IPark[]>();
-
-  useEffect(() => {
-    fetch('/api/park')
-      .then(r => r.json())
-      .then(setParks);
-  }, []);
-
   return (
     <>
-      <div style={{ textAlign: 'center' }}>
-        <h1>Welcome to national-parks!</h1>
-        <img
-          width="450"
-          src="https://raw.githubusercontent.com/nrwl/nx/master/nx-logo.png"
-        />
-      </div>
-      {/* <div>{parks[0].name}</div> */}
+      <Container>
+        <Row>
+          <Col md={{ span: 4, offset: 8 }}>
+            <h1>US National Parks</h1>
+          </Col>
+        </Row>
+        <Row>
+          <Col md={{ span: 8, offset: 2 }}>
+            <ParkList />
+          </Col>
+        </Row>
+      </Container>
     </>
   );
 };

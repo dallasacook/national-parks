@@ -4,7 +4,11 @@ import Park from '../models/park';
 const router = Router();
 
 router.get('/', async (req, res) => {
-  const parks = await Park.findAll();
+  const parks = await Park.findAll({
+    order: [
+      ['name', 'ASC']
+    ]
+  });
   return res.send(parks);
 });
 
@@ -18,6 +22,18 @@ router.post('/', async (req, res) => {
     name: req.body.name,
     type: req.body.type,
     location: req.body.location
+  });
+  return res.send(park);
+});
+
+router.put('/:parkId', async (req, res) => {
+  console.log(req.body)
+  const park = await Park.update({
+    name: req.body.name,
+    type: req.body.type,
+    location: req.body.location
+  }, {
+    where: { id: req.params.parkId }
   });
   return res.send(park);
 });
