@@ -1,76 +1,71 @@
-# NationalParks
+# US National Parks
 
-This project was generated using [Nx](https://nx.dev).
+This simple project utilizes a Postgres data store of the national parks in the US.
 
-<p align="center"><img src="https://raw.githubusercontent.com/nrwl/nx/master/nx-logo.png" width="450"></p>
+It exposes an API accounting for all CRUD operations.
 
-🔎 **Nx is a set of Extensible Dev Tools for Monorepos.**
+## Serving the React application locally 
 
-## Adding capabilities to your workspace
+Before running the app, install all dependencies using `npm ci`.
+After which, run the following command to install the Nrwl Nx tools globally `npm install -g @nrwl/cli`.
+This will allow us to directly run `nx` commands.
 
-Nx supports many plugins which add capabilities for developing different types of applications and different tools.
+Now simply execute the following command: `npm start`.
 
-These capabilities include generating applications, libraries, etc as well as the devtools to test, and build projects as well.
+## Serving the API
 
-Below are some plugins which you can add to your workspace:
+Assuming pre-requisites for package installations have been completed in the previous step, serving the API is as simple as running the following command: `nx run api:serve`.
 
-- [React](https://reactjs.org)
-  - `npm install --save-dev @nrwl/react`
-- Web (no framework frontends)
-  - `npm install --save-dev @nrwl/web`
-- [Angular](https://angular.io)
-  - `npm install --save-dev @nrwl/angular`
-- [Nest](https://nestjs.com)
-  - `npm install --save-dev @nrwl/nest`
-- [Express](https://expressjs.com)
-  - `npm install --save-dev @nrwl/express`
-- [Node](https://nodejs.org)
-  - `npm install --save-dev @nrwl/node`
 
-## Generate an application
+## Key Points About this Project
 
-Run `nx g @nrwl/react:app my-app` to generate an application.
+- Utilizes the Nrwl Nx Workspace for creating a mono-repo, which can contain both an Node/Express API as well as a React web application. This makes it easy to share code across projects such as the example `api-interfaces` library defined in this project, which contain interfaces for the `Park` and `ParkType` objects. This insures consistency between projects. Also, `TypeScript`, schematics, and testing are all made easily available using `Nx` not including the simple deployment commands. 
+- Exposes an API with all CRUD operatins available for ALL entities in the `Postgres` store. Only read, update, and delete have been made available in the `React` interface, but the rest should all be testable through Postman.
+- The `Node API` makes use of `Express` with neatly defined routes and `Sequelize` to handle querying the `Postgres` data store. 
 
-> You can use any of the plugins above to generate applications as well.
 
-When using Nx, you can create multiple applications and libraries in the same workspace.
+### The API
 
-## Generate a library
+#### `Park`
+- GET: `/api/park`
+- POST: `/api/park`
+  ```json
+  {
+    "name": "string",
+    "type": "string",
+    "location": "string"
+  }
+  ```
+- PUT: `/api/park/:parkId`
+  ```json
+  {
+    "name": "string",
+    "type": "string",
+    "location": "string"
+  }
+  ```
+- DELETE: `/api/park/:parkId`
 
-Run `nx g @nrwl/react:lib my-lib` to generate a library.
+#### `ParkType`
+- GET: `/api/park-type`
+- POST: `/api/park-type`
+  ```json
+  {
+    "term": "string",
+    "description": "string"
+  }
+  ```
+- PUT: `/api/park-type/:parkTypeId`
+  ```json
+  {
+    "term": "string",
+    "description": "string"
+  }
+  ```
+- DELETE: `/api/park-type/:parkTypeId`
 
-> You can also use any of the plugins above to generate libraries as well.
+### What's left?
 
-Libraries are sharable across libraries and applications. They can be imported from `@national-parks/mylib`.
-
-## Development server
-
-Run `nx serve my-app` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `nx g @nrwl/react:component my-component --project=my-app` to generate a new component.
-
-## Build
-
-Run `nx build my-app` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `nx test my-app` to execute the unit tests via [Jest](https://jestjs.io).
-
-Run `nx affected:test` to execute the unit tests affected by a change.
-
-## Running end-to-end tests
-
-Run `ng e2e my-app` to execute the end-to-end tests via [Cypress](https://www.cypress.io).
-
-Run `nx affected:e2e` to execute the end-to-end tests affected by a change.
-
-## Understand your workspace
-
-Run `nx dep-graph` to see a diagram of the dependencies of your projects.
-
-## Further help
-
-Visit the [Nx Documentation](https://nx.dev) to learn more.
+There are a few things that I would have loved to have completed given a bit more time on the project.
+- Unit testing
+- A slightly prettier UI, but Bootstrap does help.
