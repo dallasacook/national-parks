@@ -69,5 +69,6 @@ Assuming pre-requisites for package installations have been completed in the pre
 
 There are a few things that I would have loved to have completed given a bit more time on the project.
 - Smaller React components.
+- Move Postgres credentials out of environment files and into environment variables. (not very secure)
 - Unit testing.
 - A slightly prettier UI, but Bootstrap does help.
