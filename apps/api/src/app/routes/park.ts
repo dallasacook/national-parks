@@ -1,10 +1,16 @@
 import { Router } from 'express';
 import Park from '../models/park';
+import ParkType from '../models/park-type';
 
 const router = Router();
 
 router.get('/', async (req, res) => {
   const parks = await Park.findAll({
+    include: [
+      {
+        model: ParkType
+      }
+    ],
     order: [
       ['name', 'ASC']
     ]

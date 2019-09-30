@@ -10,7 +10,7 @@ export const App = () => {
     <>
       <Container>
         <Row>
-          <Col md={{ span: 4, offset: 8 }}>
+          <Col md={{ span: 4, offset: 4 }} style={{textAlign: 'center'}}>
             <h1>US National Parks</h1>
           </Col>
         </Row>

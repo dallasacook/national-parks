@@ -32,7 +32,6 @@ export class ParkForm extends React.Component<ParkFormProps, any> {
     this.updateFormState = this.updateFormState.bind(this);
   }
 
-
   /**
    * When any form control's value changes it triggers the
    * `onChange` event which in turn runs this method.
@@ -47,7 +46,7 @@ export class ParkForm extends React.Component<ParkFormProps, any> {
         [e.target.name]: e.target.value
       }
     });
-  };
+  }
 
   /**
    * When the form event `onSubmit` fires, it executes this
@@ -57,18 +56,19 @@ export class ParkForm extends React.Component<ParkFormProps, any> {
    */
   public submit(e): void {
     e.preventDefault();
-    axios.put(`/api/park/${this.props.park.id}`, this.state.formControls)
+    axios
+      .put(`/api/park/${this.props.park.id}`, this.state.formControls)
       .then(() => {
         this.close(true);
-      })
-  };
+      });
+  }
 
   /**
    * Handles closing the modal sending along a status to inform parent
    * components to refresh data.
    *
    */
-  public close = (status: boolean): void => {
+  public close = (status: boolean = false): void => {
     this.props.onClose(status);
   };
 
@@ -79,7 +79,7 @@ export class ParkForm extends React.Component<ParkFormProps, any> {
    */
   public render() {
     return (
-      <Modal show={this.props.show}>
+      <Modal show={this.props.show} onHide={this.close}>
         <Modal.Header closeButton>
           <Modal.Title>Edit {this.props.park.name}</Modal.Title>
         </Modal.Header>
@@ -87,7 +87,7 @@ export class ParkForm extends React.Component<ParkFormProps, any> {
         <Modal.Body>
           <Form onSubmit={this.submit}>
             <Form.Group controlId="name">
-              <Form.Label>Type</Form.Label>
+              <Form.Label>Park Name</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Enter name"
@@ -97,7 +97,7 @@ export class ParkForm extends React.Component<ParkFormProps, any> {
               />
             </Form.Group>
             <Form.Group controlId="type">
-              <Form.Label>Type</Form.Label>
+              <Form.Label>Park Type</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Enter type"
@@ -107,7 +107,7 @@ export class ParkForm extends React.Component<ParkFormProps, any> {
               />
             </Form.Group>
             <Form.Group controlId="location">
-              <Form.Label>Type</Form.Label>
+              <Form.Label>Park Location</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Enter location"

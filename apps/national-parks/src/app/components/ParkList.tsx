@@ -5,6 +5,9 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table';
 import Pagination from 'react-bootstrap/Pagination';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
+import Button from 'react-bootstrap/Button';
 
 import { ParkListButtons } from './ParkListButtons';
 import { IPark } from '@national-parks/api-interfaces';
@@ -236,7 +239,18 @@ export class ParkList extends React.Component<any, ParkListState> {
         acc.push(
           <tr key={park.id} style={{ textAlign: 'center' }}>
             <td>{park.name}</td>
-            <td>{park.type}</td>
+            <td>
+              <OverlayTrigger
+                placement="top"
+                overlay={
+                  <Tooltip id={`tooltip-${park.id}`}>
+                    {park.park_type.description}
+                  </Tooltip>
+                }
+              >
+                <Button variant="secondary">{park.type}</Button>
+              </OverlayTrigger>
+            </td>
             <td>{park.location}</td>
             <td>
               <ParkListButtons park={park} update={this.update} />
